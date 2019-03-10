@@ -1,0 +1,71 @@
+{
+
+    "machines": [
+      {
+        "type": "local",
+        "ip": "",
+        "host": "localhost",
+        "port": "8080",
+        "projectRootDirectory": "",
+        "isMavenInstalled": true,
+        "projects": [
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          },
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          }
+        ]
+      },
+      {
+        "type": "remote-1",
+        "ip": "",
+        "host": "localhost",
+        "port": "8080",
+        "projectRootDirectory": "",
+        "isMavenInstalled": true,
+        "projects": [
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          },
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          }
+        ]
+      },
+      {
+        "type": "remote-2",
+        "ip": "",
+        "host": "localhost",
+        "port": "8080",
+        "projectRootDirectory": "",
+        "isMavenInstalled": true,
+        "projects": [
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          },
+          {
+            "artifactId": "",
+            "groupId": "",
+            "path": "",
+            "executionOrder": 1
+          }
+        ]
+      }
+    ]
+  }
