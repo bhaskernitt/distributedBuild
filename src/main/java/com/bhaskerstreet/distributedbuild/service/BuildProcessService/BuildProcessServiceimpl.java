@@ -15,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import com.bhaskerstreet.distributedbuild.component.Task;
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machine;
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machines;
+import com.bhaskerstreet.distributedbuild.service.dataTransfterService.DataTrasnsferService;
 import com.bhaskerstreet.distributedbuild.service.httpClient.HttpService;
 import com.bhaskerstreet.distributedbuild.service.invokerService.InvokerService;
 import com.bhaskerstreet.distributedbuild.utils.Utils;
@@ -27,6 +28,9 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 	private HttpService httpService;
 	@Autowired
 	private InvokerService invokerService;
+	
+	@Autowired
+	private DataTrasnsferService dataTrasnsferService ;
 
 	@Autowired
 	public BuildProcessServiceimpl(Environment environment) {
@@ -40,6 +44,12 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 		invokerService.invoke(machine);
 
 	}
+	
+	
+
+	public BuildProcessServiceimpl() {
+		
+	}
 
 	@Override
 //@Async("asyncExecutor")
@@ -49,6 +59,12 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 		ExecutorService executor = Executors.newFixedThreadPool(10);
 
 		long start=System.nanoTime();
+		
+		/*dataTrasnsferService.initiateSocketConnection(listMachines.stream().filter(x -> x.getType().equalsIgnoreCase("local"))
+        .findFirst()
+        .orElse(null).getFileTransferPort());*/
+				
+			
 		
 		for (Machine machine : listMachines) {
 			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -81,5 +97,15 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 		System.out.println((end-start)/1000000);
 
 	}
+
+	@Override
+	public void transferBuild(Machine machine) throws Exception {
+	
+		
+		
+	}
+	
+	
+	
 
 }

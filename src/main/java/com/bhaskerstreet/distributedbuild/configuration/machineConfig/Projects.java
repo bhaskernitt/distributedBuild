@@ -11,6 +11,7 @@ public class Projects {
     private String groupId;
     private String path;
     private int executionOrder;
+    private String targetPath;
 
 
     public String getArtifactId() {
@@ -44,4 +45,14 @@ public class Projects {
     public void setExecutionOrder(int executionOrder) {
         this.executionOrder = executionOrder;
     }
+
+	public String getTargetPath() {
+		return targetPath;
+	}
+
+	public void setTargetPath(String targetPath) {
+		this.targetPath = targetPath;
+	}
+    
+    
 }

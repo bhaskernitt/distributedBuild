@@ -3,8 +3,10 @@ package com.bhaskerstreet.distributedbuild.controller.v1.build;
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machine;
 import com.bhaskerstreet.distributedbuild.service.BuildProcessService.BuildProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +18,7 @@ private BuildProcessService buildProcessService;
 
 
 @PostMapping(value = "/build")
-public String build(@RequestBody Machine machine){
+public String build(@RequestBody Machine machine,@RequestHeader MultiValueMap<String,String> headers){
 
 	System.out.println(machine);
 	buildProcessService.process(machine);
@@ -24,6 +26,7 @@ public String build(@RequestBody Machine machine){
 	System.out.println("request rcvd : "+machine);
 
 
+	
 
 	return "build request processed successfully";
 

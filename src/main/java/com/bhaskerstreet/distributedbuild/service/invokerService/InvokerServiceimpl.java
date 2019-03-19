@@ -27,17 +27,33 @@ public void invoke(Machine machine) {
 		URL resource ;
 
 		String osName = Utils.getOsName();
+		System.out.println("os found is " +   osName+"...");
+
 		for (Projects projects:machine.getProjects()) {
 			   if (osName.startsWith("windows")) {
 			      // -- Windows --
-			      resource = InvokerServiceimpl.class.getResource("/scripts/script.bat");
-			      processBuilder.command( Paths.get(resource.toURI()).toFile().getAbsolutePath(), projects.getArtifactId(),projects.getPath());
+				   
+				  
+				   System.out.println("........");
+				   System.out.println(getClass().getResource("/scripts/script.bat"));
+			      resource = getClass().getResource("/scripts/script.bat");
+			      System.out.println(resource.toURI().getPath()+"-----");
+			      try {
+			    	System.out.println("artifact "  +projects.getArtifactId());
+			    	System.out.println("project path   "+projects.getPath());
+			    	}
+			      catch(Exception e) {
+			    	  System.out.println("exception caught");
+			      }//D:\eclipseWorkSpaceNew\distributedBuild\target\distributedBuildSetup\doNotDelete\scripts
+			      processBuilder.command( /*resource.toURI().getPath()*/System.getProperty("user.dir")+"\\doNotDelete\\scripts\\script.bat", projects.getArtifactId(),projects.getPath(),projects.getPath().substring(0, 1));
 			   	} else {
 			      // -- Linux --
 			      System.out.println("linux system found");
 			      resource = InvokerServiceimpl.class.getResource("/scripts/script.sh");
-			      processBuilder.command("/bin/bash", Paths.get(resource.toURI()).toFile().getAbsolutePath(), projects.getArtifactId(),projects.getPath());
+			      processBuilder.command("/bin/bash", System.getProperty("user.dir")+"\\doNotDelete\\scripts\\script.sh",projects.getPath());
 			      }
+			   
+			   System.out.println("process is ready to runn....");
 			   process = processBuilder.start();
 				BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 				String line = stdInput.readLine();

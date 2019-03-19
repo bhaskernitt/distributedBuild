@@ -8,6 +8,7 @@ echo %2
 echo %3
 
 echo "param loaded"
+ %3:
 cd %2
 
 mvn -pl . clean install

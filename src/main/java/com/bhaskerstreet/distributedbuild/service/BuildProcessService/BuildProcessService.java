@@ -11,4 +11,6 @@ public interface BuildProcessService {
 void process(Machine machine);
 
 void process(Machines machines) throws Exception;
+
+void transferBuild(Machine machine) throws Exception;
 }

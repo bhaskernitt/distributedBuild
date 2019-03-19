@@ -14,6 +14,7 @@ public class Machine {
     private String ip;
     private String host;
     private String port;
+    private Integer fileTransferPort;
     private String projectRootDirectory;
     private boolean isMavenInstalled;
     private List<Projects> projects;
@@ -76,4 +77,14 @@ public class Machine {
     public void setIsMavenInstalled(boolean mavenInstalled) {
         isMavenInstalled = mavenInstalled;
     }
+
+	public Integer getFileTransferPort() {
+		return fileTransferPort;
+	}
+
+	public void setFileTransferPort(Integer fileTransferPort) {
+		this.fileTransferPort = fileTransferPort;
+	}
+    
+    
 }
