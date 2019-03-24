@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface InvokerService {
 
-	void invoke(Machine  machine);
+	void invoke(Machine  machine,String host);
 }

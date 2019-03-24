@@ -28,9 +28,9 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 	private HttpService httpService;
 	@Autowired
 	private InvokerService invokerService;
-	
+
 	@Autowired
-	private DataTrasnsferService dataTrasnsferService ;
+	private DataTrasnsferService dataTrasnsferService;
 
 	@Autowired
 	public BuildProcessServiceimpl(Environment environment) {
@@ -41,71 +41,62 @@ public class BuildProcessServiceimpl<T> implements BuildProcessService {
 	@Override
 	public void process(Machine machine) {
 
-		invokerService.invoke(machine);
+		invokerService.invoke(machine, null);
 
 	}
-	
-	
 
 	public BuildProcessServiceimpl() {
-		
+
 	}
 
 	@Override
 //@Async("asyncExecutor")
-	public void process(Machines machines) throws Exception {
+	public void process(Machines machines, String host) throws Exception {
 
 		List<Machine> listMachines = machines.getMachines();
 		ExecutorService executor = Executors.newFixedThreadPool(10);
 
-		long start=System.nanoTime();
-		
-		/*dataTrasnsferService.initiateSocketConnection(listMachines.stream().filter(x -> x.getType().equalsIgnoreCase("local"))
-        .findFirst()
-        .orElse(null).getFileTransferPort());*/
-				
-			
-		
+		long start = System.nanoTime();
+
+		/*
+		 * dataTrasnsferService.initiateSocketConnection(listMachines.stream().filter(x
+		 * -> x.getType().equalsIgnoreCase("local")) .findFirst()
+		 * .orElse(null).getFileTransferPort());
+		 */
+
 		for (Machine machine : listMachines) {
 			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 			headers.set("Content-Type", "application/json");
 			HttpEntity<?> request = new HttpEntity<>(machine, headers);
 
+			machine.setInitiatorHostAddress("http://" + host);
 			Task<String> task = new Task(
 					Utils.append("/", machine.getHost(), environment.getProperty("remote.request.build.url")),
-					HttpMethod.POST, request, String.class,machine);
+					HttpMethod.POST, request, String.class, machine);
 
-			
 			executor.submit(task);
 
 			System.out.println("task submitted....");
 
-			
-			/* MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
-			  headers.set("Content-Type", "application/json"); HttpEntity<?> request = new
-			  HttpEntity<>(machine, headers); 
-			  httpService.sendPOSTRequest(Utils.append("/",
-			  machine.getHost(), environment.getProperty("remote.request.build.url")),
-			  request, String.class);*/
-			 
+			/*
+			 * MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
+			 * headers.set("Content-Type", "application/json"); HttpEntity<?> request = new
+			 * HttpEntity<>(machine, headers); httpService.sendPOSTRequest(Utils.append("/",
+			 * machine.getHost(), environment.getProperty("remote.request.build.url")),
+			 * request, String.class);
+			 */
+
 		}
-		
-		long end=System.nanoTime();
-		
-		
-		
-		System.out.println((end-start)/1000000);
+
+		long end = System.nanoTime();
+
+		System.out.println((end - start) / 1000000);
 
 	}
 
 	@Override
 	public void transferBuild(Machine machine) throws Exception {
-	
-		
-		
+
 	}
-	
-	
-	
 
 }

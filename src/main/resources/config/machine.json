@@ -14,14 +14,16 @@
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
-          },
+             "copyBuildFromPath":"",
+             "copyBuildToPath":""
+ 		  },
           {
             "artifactId": "",
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
+            "copyBuildFromPath":"",
+             "copyBuildToPath":""
           }
         ]
       },
@@ -38,14 +40,16 @@
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
+             "copyBuildFromPath":"",
+             "copyBuildToPath":""
           },
           {
             "artifactId": "",
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
+            "copyBuildFromPath":"",
+             "copyBuildToPath":""
           }
         ]
       },
@@ -62,14 +66,16 @@
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
+             "copyBuildFromPath":"",
+             "copyBuildToPath":""
           },
           {
             "artifactId": "",
             "groupId": "",
             "path": "",
             "executionOrder": 1,
-            "targetPath":""
+             "copyBuildFromPath":"",
+             "copyBuildToPath":""
           }
         ]
       }

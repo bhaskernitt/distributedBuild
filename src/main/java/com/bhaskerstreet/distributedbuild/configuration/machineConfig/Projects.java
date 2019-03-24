@@ -11,7 +11,9 @@ public class Projects {
     private String groupId;
     private String path;
     private int executionOrder;
-    private String targetPath;
+    private String copyBuildFromPath;
+    private String copyBuildToPath;
+    
 
 
     public String getArtifactId() {
@@ -46,13 +48,23 @@ public class Projects {
         this.executionOrder = executionOrder;
     }
 
-	public String getTargetPath() {
-		return targetPath;
+	public String getCopyBuildFromPath() {
+		return copyBuildFromPath;
 	}
 
-	public void setTargetPath(String targetPath) {
-		this.targetPath = targetPath;
+	public void setCopyBuildFromPath(String copyBuildFromPath) {
+		this.copyBuildFromPath = copyBuildFromPath;
 	}
+
+	public String getCopyBuildToPath() {
+		return copyBuildToPath;
+	}
+
+	public void setCopyBuildToPath(String copyBuildToPath) {
+		this.copyBuildToPath = copyBuildToPath;
+	}
+
+	
     
     
 }

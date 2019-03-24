@@ -18,6 +18,7 @@ public class Machine {
     private String projectRootDirectory;
     private boolean isMavenInstalled;
     private List<Projects> projects;
+    private String initiatorHostAddress;
 
 
     public String getType() {
@@ -84,6 +85,14 @@ public class Machine {
 
 	public void setFileTransferPort(Integer fileTransferPort) {
 		this.fileTransferPort = fileTransferPort;
+	}
+
+	public String getInitiatorHostAddress() {
+		return initiatorHostAddress;
+	}
+
+	public void setInitiatorHostAddress(String initiatorHostAddress) {
+		this.initiatorHostAddress = initiatorHostAddress;
 	}
     
     

@@ -1,13 +1,24 @@
 #!/bin/bash
+
 # My first script
 
-echo "started"
 
-echo $1
-echo $2
 
-echo "parms info"
-cd $2
+
+
+
+
+echo "parms info 1" $1
+
+
+
+#cd $2
+
+cd $1
+
 mvn -pl . clean install
 
+
+
 echo "completed"
+

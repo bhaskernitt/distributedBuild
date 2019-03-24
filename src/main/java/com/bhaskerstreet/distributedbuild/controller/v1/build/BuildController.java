@@ -21,10 +21,10 @@ public class BuildController {
 	private BuildProcessService buildProcessService;
 
 	@PostMapping(value = "/startBuild")
-	public String startBuild(@RequestBody Machines machines) throws Exception {
+	public String startBuild(@RequestBody Machines machines,@RequestHeader MultiValueMap<String, String> headers) throws Exception {
 
 		// BuildProcessService buildProcessService = new BuildProcessServiceimpl();
-		buildProcessService.process(machines);
+		buildProcessService.process(machines,headers.toSingleValueMap().get("host"));
 
 		return "build request processed successfully";
 

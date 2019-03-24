@@ -22,14 +22,14 @@ import com.bhaskerstreet.distributedbuild.utils.Utils;
 public class InvokerServiceimpl implements InvokerService {
 
 	@Override
-	public void invoke(Machine machine) {
+	public void invoke(Machine machine, String host) {
 
 		Process process = null;
 		BufferedReader stdInput = null;
 		BufferedReader stdErrorInput = null;
 		String osName;
 
-		String senderHost = "http://511670d8.ngrok.io";
+		
 
 		try {
 
@@ -57,7 +57,7 @@ public class InvokerServiceimpl implements InvokerService {
 						System.out.println("linux system found");
 						// resource = InvokerServiceimpl.class.getResource("/scripts/script.sh");
 						processBuilder.command("/bin/bash",
-								System.getProperty("user.dir") + "\\doNotDelete\\scripts\\script.sh",
+								System.getProperty("user.dir") + "/doNotDelete/scripts/script.sh",
 								projects.getPath());
 					}
 
@@ -87,7 +87,7 @@ public class InvokerServiceimpl implements InvokerService {
 					process.destroyForcibly();
 
 					// if(process.getErrorStream()==null) {
-					initiateSocketConnectionOnSuccessBuild(osName, projects, senderHost);
+					initiateSocketConnectionOnSuccessBuild(osName, projects, machine.getInitiatorHostAddress());
 					// }
 
 				}
@@ -104,7 +104,7 @@ public class InvokerServiceimpl implements InvokerService {
 	private void initiateSocketConnectionOnSuccessBuild(String osName, Projects projects, String senderHost) {
 		try {
 
-			byte[] array = Files.readAllBytes(new File(projects.getTargetPath())
+			byte[] array = Files.readAllBytes(new File(projects.getCopyBuildFromPath())
 							.toPath());
 
 			HttpService client = new HttpServiceImpl();
@@ -112,7 +112,7 @@ public class InvokerServiceimpl implements InvokerService {
 			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 		
 			headers.add("Content-Type", "text/plain");
-			headers.add("filepath",projects.getTargetPath());
+			headers.add("filepath",projects.getCopyBuildToPath());
 
 			HttpEntity<?> request = new HttpEntity<>(array, headers);
 
