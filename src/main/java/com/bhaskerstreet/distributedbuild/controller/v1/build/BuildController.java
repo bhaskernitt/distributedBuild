@@ -1,56 +1,63 @@
 package com.bhaskerstreet.distributedbuild.controller.v1.build;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machine;
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machines;
 import com.bhaskerstreet.distributedbuild.service.BuildProcessService.BuildProcessService;
-import com.bhaskerstreet.distributedbuild.service.BuildProcessService.BuildProcessServiceimpl;
-import com.bhaskerstreet.distributedbuild.service.dataTransfterService.DataTransferServiceImpl;
-import com.bhaskerstreet.distributedbuild.service.dataTransfterService.DataTrasnsferService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BuildController {
 
+	@Autowired
+	private BuildProcessService buildProcessService;
 
-	/*@Autowired
-	private BuildProcessService buildProcessService;*/
+	@PostMapping(value = "/startBuild")
+	public String startBuild(@RequestBody Machines machines) throws Exception {
 
+		// BuildProcessService buildProcessService = new BuildProcessServiceimpl();
+		buildProcessService.process(machines);
 
+		return "build request processed successfully";
 
-	
+	}
 
-@PostMapping(value = "/startBuild")
-public String startBuild(@RequestBody Machines machines) throws Exception{
+	@PostMapping(value = "/build")
+	public String build(@RequestBody Machine machine, @RequestHeader MultiValueMap<String, String> headers) {
 
-	Runnable task = () -> {
-	    
-	    
-	    DataTrasnsferService dataTrasnsferService=new DataTransferServiceImpl();
-	    
-	    dataTrasnsferService.initiateSocketConnection(machines.getMachines().stream().filter(x -> x.getType().equalsIgnoreCase("local"))
-        .findFirst()
-        .orElse(null).getFileTransferPort());
-	};
+		System.out.println(machine);
+		buildProcessService.process(machine);
 
-	
-	
-	BuildProcessService buildProcessService=new BuildProcessServiceimpl();
-	buildProcessService.process(machines);
-	
-	task.run();
+		System.out.println("request rcvd : " + machine);
 
-	Thread thread = new Thread(task);
-	thread.start();
-	
-	
+		return "build request processed successfully";
 
-return "build request processed successfully";
+	}
 
-}
+	@PostMapping(value = "/copyBuild")
+	public String sayHello(@RequestHeader MultiValueMap<String, String> headers, @RequestBody byte[] body) {
+
+		String message = "FILE COPIED SUCCESSFULLY......";
+		try {
+			Files.write(Paths.get(headers.toSingleValueMap().get("filepath")), body);
+		}
+
+		catch (Exception e) {
+
+			System.out.println("unable to copy generated build");
+			message = "unable to copy build file";
+
+		}
+
+		return message;
+
+	}
 }

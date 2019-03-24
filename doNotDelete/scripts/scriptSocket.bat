@@ -1,0 +1,1 @@
+curl -i -X POST -H  "Content-Type: text/plain" -H "filepath: /Users/nandkishorb/Documents/Repository/distributedBuild/testcurlWin.bat"  --data-urlencode "%1"   %2/hello
