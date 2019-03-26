@@ -16,12 +16,10 @@
         </Property>
 
         <Property name="LOG_PATH">
-            logs/freshcaller-cpass.log
+            logs/LOGS.log
         </Property>
 
-        <Property name="REST_LOG_PATH">
-            logs/freshcaller-cpass-API.log
-        </Property>
+       
     </Properties>
 
     <Appenders>
@@ -35,17 +33,11 @@
             </PatternLayout>
         </File>
 
-        <File name="RESTLogging" fileName="${REST_LOG_PATH}" append="true">
-            <PatternLayout>
-                <Pattern>${LOG_PATTERN_API}</Pattern>
-            </PatternLayout>
-        </File>
+        
     </Appenders>
 
     <Loggers>
-        <Logger level="info" additivity="false" name="com.freshcalller.cpass.configuration.logging.CustomLoggingFilter">
-            <AppenderRef ref="RESTLogging"/>
-        </Logger>
+       
         <Root level="info">
             <AppenderRef ref="FileAppender"/>
             <AppenderRef ref="ConsoleAppender"/>
