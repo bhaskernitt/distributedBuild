@@ -118,6 +118,7 @@ public class InvokerServiceimpl implements InvokerService {
 
 			long startTime = System.currentTimeMillis();
 
+			System.out.println("senderHost :  "+senderHost);
 			ResponseEntity responseEntity = client.sendPOSTRequest(senderHost + "/copyBuild", request, String.class);
 
 			long endTime = System.currentTimeMillis();

@@ -1,16 +1,31 @@
-import com.nimbusds.jose.*;
+
+package com.bhaskerstreet.distributedbuild.configuration;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.util.Objects;
+
+import com.nimbusds.jose.EncryptionMethod;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWEAlgorithm;
+import com.nimbusds.jose.JWEHeader;
+import com.nimbusds.jose.JWEObject;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.Requirement;
 import com.nimbusds.jose.crypto.DirectEncrypter;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.*;
+import com.nimbusds.jose.proc.BadJOSEException;
+import com.nimbusds.jose.proc.JWEDecryptionKeySelector;
+import com.nimbusds.jose.proc.JWEKeySelector;
+import com.nimbusds.jose.proc.JWSKeySelector;
+import com.nimbusds.jose.proc.JWSVerificationKeySelector;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.util.Objects;
 
 public class JwtToken {
 
@@ -83,7 +98,7 @@ public static class JWTbuilder {
 
 	private EncryptionMethod getEncriptionMethod(String jweEncriptioMethod) {
 
-		if (GlobalConstants.A256GCM.equalsIgnoreCase(jweEncriptioMethod)) {
+		if (true) {
 			return EncryptionMethod.A256GCM;
 		}
 		return null;
@@ -116,7 +131,7 @@ public static class JWTbuilder {
 			throw new Exception(e.getMessage());
 		}
 
-		return new JWT(this);
+		return new JwtToken(this);
 	}
 
 
