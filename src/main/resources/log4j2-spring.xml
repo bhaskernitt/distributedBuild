@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            time="%d{ISO8601}{UTC}Z", thread="[%15.15t]", class="[%-40.40c{1.}]" , %m%n
+        </Property>
+
+        <Property name="LOG_PATTERN_API">
+            time="%d{ISO8601}{UTC}Z", thread="[%20.20t]", class="[%22.40X{ClassName}{1.}]", "%m"%n
+        </Property>
+
+        <Property name="LOG_PATTERN_CONSOLE">
+            %highlight{%d{HH:mm:ss.SSS}--%X{UniqueId} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink,
+            ERROR=red, WARN=yellow
+            bold, INFO=black, DEBUG=green bold, TRACE=blue}
+        </Property>
+
+        <Property name="LOG_PATH">
+            logs/freshcaller-cpass.log
+        </Property>
+
+        <Property name="REST_LOG_PATH">
+            logs/freshcaller-cpass-API.log
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN_CONSOLE}"/>
+        </Console>
+
+        <File name="FileAppender" fileName="${LOG_PATH}" append="true">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+        </File>
+
+        <File name="RESTLogging" fileName="${REST_LOG_PATH}" append="true">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN_API}</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger level="info" additivity="false" name="com.freshcalller.cpass.configuration.logging.CustomLoggingFilter">
+            <AppenderRef ref="RESTLogging"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
