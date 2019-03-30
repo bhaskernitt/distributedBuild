@@ -1,11 +1,13 @@
 package com.bhaskerstreet.distributedbuild.configuration;
 
 
+import com.bhaskerstreet.distributedbuild.configuration.filters.SecurityFilter;
 import com.bhaskerstreet.distributedbuild.configuration.machineConfig.Machines;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -42,6 +44,11 @@ public RestTemplate restTemplate() {
 }
 
 
+@Bean
+@Order(1)
+public SecurityFilter securityFilter() {
+	return  new SecurityFilter();
+}
 
 
 }
